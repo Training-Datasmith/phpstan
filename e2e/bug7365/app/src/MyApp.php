@@ -5,7 +5,4 @@ class MyApp extends ApplicationController {
 		ExternalClass::WARENGRUPPE_STOCKSCHIRME,
 		ExternalClass::WARENGRUPPE_TASCHENSCHIRME,
 	];
-
-	public function __construct() {
-	}
 }

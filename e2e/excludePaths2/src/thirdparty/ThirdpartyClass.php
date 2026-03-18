@@ -2,7 +2,7 @@
 
 class ThirdpartyClass {
 
-    public function test() {
+    public function test(): void {
         $this->undefinedVariable = 123;
     }
 

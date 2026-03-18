@@ -9,6 +9,6 @@ class HelloWorld
     public function sayHello(): void
     {
         $xml = new SimpleXmlElement('asdf');
-        $dataTags = $xml->xpath('//data');
+        $xml->xpath('//data');
     }
 }

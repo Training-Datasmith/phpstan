@@ -30,9 +30,12 @@ class ErrorFormatter implements \PHPStan\Command\ErrorFormatter\ErrorFormatter
             if ($error->hasNonIgnorableException()) {
                 return $this->tableErrorFormatter->formatErrors($analysisResult, $output);
             }
-			if ($error->getIdentifier() === 'ignore.unmatchedLine' || $error->getIdentifier() === 'ignore.unmatchedIdentifier') {
-				continue;
-			}
+            if ($error->getIdentifier() === 'ignore.unmatchedLine') {
+                continue;
+            }
+            if ($error->getIdentifier() === 'ignore.unmatchedIdentifier') {
+                continue;
+            }
 			if ($error->getIdentifier() !== 'phpstanIdentifierExtractor.data') {
 				return $this->tableErrorFormatter->formatErrors($analysisResult, $output);
 			}

@@ -20,7 +20,7 @@ class HttpResponse
 	{
 	}
 
-	public function deleteCookie(string $name)
+	public function deleteCookie(string $name): void
 	{
 		$this->sendCookie($name, '');
 	}

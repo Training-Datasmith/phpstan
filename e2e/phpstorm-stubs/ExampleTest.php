@@ -18,17 +18,13 @@ class ExampleTest extends RuleTestCase
 	{
 		return new class($this->createReflectionProvider()) implements Rule {
 
-			/** @var ReflectionProvider */
-			private $reflectionProvider;
+			private \PHPStan\Reflection\ReflectionProvider $reflectionProvider;
 
 			public function __construct(ReflectionProvider $reflectionProvider)
 			{
 				$this->reflectionProvider = $reflectionProvider;
 			}
 
-			/**
-			 * @return string
-			 */
 			public function getNodeType(): string
 			{
 				return Echo_::class;

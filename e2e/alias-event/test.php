@@ -9,7 +9,3 @@ class MyOwnClass
 	}
 
 }
-
-function (\Event $e): void {
-	$e->doFoo();
-};

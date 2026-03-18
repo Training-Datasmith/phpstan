@@ -5,7 +5,7 @@ class ExternalClass {
 	const WARENGRUPPE_TASCHENSCHIRME = ClassWithConstants::WARENGRUPPE_TASCHENSCHIRME;
 	const WARENGRUPPE_SONNENSCHIRME = ClassWithConstants::WARENGRUPPE_SONNENSCHIRME;
 
-	public function doSomething() {
+	public function doSomething(): void {
 		echo "ExternalClass::doSomething()\n";
 	}
 }

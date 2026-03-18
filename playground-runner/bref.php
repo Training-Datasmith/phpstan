@@ -31,7 +31,7 @@ function clearTemp(): void
 	}
 }
 
-return function ($event) use ($phpstanVersion) {
+return function (array $event) use ($phpstanVersion): array {
 	clearTemp();
 	$code = $event['code'];
 	$level = $event['level'];
@@ -47,11 +47,13 @@ return function ($event) use ($phpstanVersion) {
 		'strictRules' => $rootDir . '/vendor/phpstan/phpstan-strict-rules/rules.neon',
 		'bleedingEdge' => 'phar://' . $rootDir . '/vendor/phpstan/phpstan/phpstan.phar/conf/bleedingEdge.neon',
 	] as $key => $file) {
-		if (!isset($event[$key]) || !$event[$key]) {
-			continue;
-		}
-
-		$configFiles[] = $file;
+		if (!isset($event[$key])) {
+            continue;
+        }
+        if (!$event[$key]) {
+            continue;
+        }
+        $configFiles[] = $file;
 	}
 
 	$finalConfigFile = '/tmp/run-phpstan-tmp.neon';

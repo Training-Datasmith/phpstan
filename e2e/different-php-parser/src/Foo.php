@@ -10,7 +10,7 @@ class Foo
 
 	public function doFoo(Catch_ $catch_): void
 	{
-		$this->doBar($catch_->var);
+		$this->doBar();
 	}
 
 	public function doBar(Variable $var): void

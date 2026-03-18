@@ -1,8 +1,8 @@
 <?php
 
-spl_autoload_register(function() {
+spl_autoload_register(function(): void {
     $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(__DIR__ . '/classes'));
-    foreach ($iterator as $path => $file) {
+    foreach ($iterator as $file) {
         // ...
     }
 });

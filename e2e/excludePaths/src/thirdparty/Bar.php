@@ -6,8 +6,7 @@ class Bar
 {
 
 	public function doBar()
-	{
-		return;
-	}
+    {
+    }
 
 }

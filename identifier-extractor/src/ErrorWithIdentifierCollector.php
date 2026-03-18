@@ -55,7 +55,7 @@ class ErrorWithIdentifierCollector implements Collector
 		}
 
 		return [
-			'identifiers' => array_map(static fn ($type) => $type->getValue(), $identifier->getConstantStrings()),
+			'identifiers' => array_map(static fn ($type): string => $type->getValue(), $identifier->getConstantStrings()),
 			'class' => $scope->getClassReflection()->getName(),
 			'file' => $scope->getFile(),
 			'line' => $args[0]->getStartLine(),

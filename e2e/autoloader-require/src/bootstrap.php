@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-\spl_autoload_register(function ($class)
+\spl_autoload_register(function ($class): void
 {
     $unprefixedClass = \str_replace('Example\\', '', $class);
 

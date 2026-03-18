@@ -11,8 +11,7 @@ final class PharAutoloader
 	/** @var ClassLoader */
 	private static $composerAutoloader;
 
-	/** @var bool */
-	private static $polyfillsLoaded = false;
+	private static bool $polyfillsLoaded = false;
 
 	final public static function loadClass(string $class): void {
 		if (!extension_loaded('phar') || defined('__PHPSTAN_RUNNING__')) {

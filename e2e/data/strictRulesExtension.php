@@ -7,7 +7,7 @@ class DynamicCallToStaticMethod
 
 	public function foo(): void
 	{
-		$this->bar();
+		static::bar();
 	}
 
 	public static function bar(): void
