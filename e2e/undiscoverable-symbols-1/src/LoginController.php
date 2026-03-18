@@ -9,8 +9,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 class LoginController
 {
-	public function login(): JsonResponse
-	{
-		return new JWTAuthenticationFailureResponse();
-	}
+    public function login(): JsonResponse
+    {
+        return new JWTAuthenticationFailureResponse();
+    }
 }

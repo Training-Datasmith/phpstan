@@ -1,3 +1,3 @@
 <?php
 
-use Phalcon\Events\Event;
+declare(strict_types=1);

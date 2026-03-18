@@ -1,6 +1,11 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace IdentifierExtractor;
+
+use function array_map;
+use function count;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
@@ -10,8 +15,7 @@ use PHPStan\Rules\RestrictedUsage\RestrictedUsage;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\ShouldNotHappenException;
 use PHPStan\Type\ObjectType;
-use function array_map;
-use function count;
+
 use function sprintf;
 
 /**
@@ -19,29 +23,28 @@ use function sprintf;
  */
 class RuleErrorBuilderCollector implements Collector
 {
+    public function getNodeType(): string
+    {
+        return MethodCall::class;
+    }
 
-	public function getNodeType(): string
-	{
-		return MethodCall::class;
-	}
+    public function processNode(Node $node, Scope $scope)
+    {
+        if (!$node->name instanceof Node\Identifier) {
+            return null;
+        }
 
-	public function processNode(Node $node, Scope $scope)
-	{
-		if (!$node->name instanceof Node\Identifier) {
-			return null;
-		}
+        if ($node->name->toLowerString() !== 'identifier') {
+            return null;
+        }
 
-		if ($node->name->toLowerString() !== 'identifier') {
-			return null;
-		}
+        $args = $node->getArgs();
+        if (!isset($args[0])) {
+            return null;
+        }
 
-		$args = $node->getArgs();
-		if (!isset($args[0])) {
-			return null;
-		}
-
-		$identifier = $scope->getType($args[0]->value);
-		if (count($identifier->getConstantStrings()) === 0) {
+        $identifier = $scope->getType($args[0]->value);
+        if (count($identifier->getConstantStrings()) === 0) {
             $argValue = $args[0]->value;
             if (
                 $argValue instanceof Node\Expr\PropertyFetch
@@ -53,25 +56,25 @@ class RuleErrorBuilderCollector implements Collector
                     return null;
                 }
             }
-			throw new ShouldNotHappenException(sprintf('Unknown identifier'));
-		}
+            throw new ShouldNotHappenException(sprintf('Unknown identifier'));
+        }
 
-		$calledOnType = $scope->getType($node->var);
-		$ruleErrorBuilder = new ObjectType(RuleErrorBuilder::class);
-		if (!$ruleErrorBuilder->isSuperTypeOf($calledOnType)->yes()) {
-			return null;
-		}
+        $calledOnType = $scope->getType($node->var);
+        $ruleErrorBuilder = new ObjectType(RuleErrorBuilder::class);
+        if (!$ruleErrorBuilder->isSuperTypeOf($calledOnType)->yes()) {
+            return null;
+        }
 
-		if (!$scope->isInClass()) {
-			return null;
-		}
+        if (!$scope->isInClass()) {
+            return null;
+        }
 
-		return [
-			'identifiers' => array_map(static fn ($type): string => $type->getValue(), $identifier->getConstantStrings()),
-			'class' => $scope->getClassReflection()->getName(),
-			'file' => $scope->getFile(),
-			'line' => $args[0]->getStartLine(),
-		];
-	}
+        return [
+            'identifiers' => array_map(static fn ($type): string => $type->getValue(), $identifier->getConstantStrings()),
+            'class' => $scope->getClassReflection()->getName(),
+            'file' => $scope->getFile(),
+            'line' => $args[0]->getStartLine(),
+        ];
+    }
 
 }

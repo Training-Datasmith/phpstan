@@ -8,8 +8,7 @@ class ClassATest
 {
     public function test(): void
     {
-        $anonStub = new class() extends \Example\ClassA
-        {
+        $anonStub = new class () extends \Example\ClassA {
             use \Example\ClassAHelperTrait;
         };
     }

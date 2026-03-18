@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Madbriller\PhpstanRepro\Consumer;
 use Madbriller\PhpstanRepro\Impl;
 

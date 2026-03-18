@@ -11,39 +11,39 @@ use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
 class EnumValidatorTest extends ConstraintValidatorTestCase
 {
-	protected function createValidator(): EnumValidator
-	{
-		return new EnumValidator();
-	}
+    protected function createValidator(): EnumValidator
+    {
+        return new EnumValidator();
+    }
 
-	public function testValid(): void
-	{
-		$constraint = new Enum(
-			[
-				'class' => Role::class,
-				'message' => 'myMessage',
-			]
-		);
+    public function testValid(): void
+    {
+        $constraint = new Enum(
+            [
+                'class' => Role::class,
+                'message' => 'myMessage',
+            ]
+        );
 
-		$this->validator->validate(Role::ADMIN->value, $constraint);
-		$this->assertNoViolation();
-	}
+        $this->validator->validate(Role::ADMIN->value, $constraint);
+        $this->assertNoViolation();
+    }
 
-	public function testInvalid(): void
-	{
-		$constraint = new Enum(
-			[
-				'class' => Role::class,
-				'message' => 'myMessage',
-			]
-		);
+    public function testInvalid(): void
+    {
+        $constraint = new Enum(
+            [
+                'class' => Role::class,
+                'message' => 'myMessage',
+            ]
+        );
 
-		$value = 'knight';
-		$this->validator->validate($value, $constraint);
+        $value = 'knight';
+        $this->validator->validate($value, $constraint);
 
-		$this->buildViolation('myMessage')
-			->setParameter('{{ value }}', $value)
-			->setCode(Enum::ENUM)
-			->assertRaised();
-	}
+        $this->buildViolation('myMessage')
+            ->setParameter('{{ value }}', $value)
+            ->setCode(Enum::ENUM)
+            ->assertRaised();
+    }
 }

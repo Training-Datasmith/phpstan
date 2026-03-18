@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 spl_autoload_register(function (string $name): void {
     if (strpos($name, 'Repro_7960_') === 0) {
         $nameExploded = explode('__extends_', $name, 2);

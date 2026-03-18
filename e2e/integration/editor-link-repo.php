@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 putenv('COLUMNS=500');
 
 $commit = trim(shell_exec('git rev-parse HEAD'));

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 // FooOriginal class is defined in eval() in preload.php
 class Foo extends FooOriginal
 {

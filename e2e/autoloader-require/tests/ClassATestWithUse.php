@@ -11,8 +11,7 @@ class ClassATestWithUse
 {
     public function test(): void
     {
-        $anonStub = new class() extends ClassA
-        {
+        $anonStub = new class () extends ClassA {
             use ClassAHelperTrait;
         };
     }

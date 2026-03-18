@@ -1,4 +1,5 @@
 <?php
 
-define('APPLICATION_ROOT', APP_ROOT);
+declare(strict_types=1);
 
+define('APPLICATION_ROOT', APP_ROOT);

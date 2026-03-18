@@ -1,8 +1,11 @@
 <?php
 
-class ThirdpartyClass {
+declare(strict_types=1);
 
-    public function test(): void {
+class ThirdpartyClass
+{
+    public function test(): void
+    {
         $this->undefinedVariable = 123;
     }
 

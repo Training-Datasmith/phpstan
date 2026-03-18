@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 set_error_handler(
     function (int $severity, string $msg, string $file, int $line): bool {
         if ((error_reporting() & ~4437) === 0) {

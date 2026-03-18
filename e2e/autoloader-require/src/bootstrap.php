@@ -2,26 +2,21 @@
 
 declare(strict_types=1);
 
-\spl_autoload_register(function ($class): void
-{
+\spl_autoload_register(function ($class): void {
     $unprefixedClass = \str_replace('Example\\', '', $class);
 
-    if (\mb_strpos($unprefixedClass, 'Tests\\') === 0)
-    {
+    if (\mb_strpos($unprefixedClass, 'Tests\\') === 0) {
         $unprefixedClass = \str_replace('Tests\\', '', $unprefixedClass);
         $path = __DIR__ . DIRECTORY_SEPARATOR
             . '..' . DIRECTORY_SEPARATOR
             . 'tests' . DIRECTORY_SEPARATOR
             . $unprefixedClass . '.php';
-    }
-    else
-    {
+    } else {
         $path = __DIR__ . DIRECTORY_SEPARATOR
             . $unprefixedClass . '.php';
     }
 
-    if (!\file_exists($path))
-    {
+    if (!\file_exists($path)) {
         // Defer to other autoloaders
         return;
     }

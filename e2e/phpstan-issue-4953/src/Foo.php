@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 class Foo
 {
     public static function getExceptionClass(Exception $exception): string

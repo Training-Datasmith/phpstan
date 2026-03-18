@@ -1,17 +1,19 @@
-<?php declare(strict_types = 1);
+<?php
 
-use MongoDB\Driver\Manager;
+declare(strict_types=1);
+
 use MongoDB\Driver\BulkWrite;
+use MongoDB\Driver\Manager;
 use MongoDB\Driver\WriteResult;
 
 class MongoDBE2ETest
 {
-	public function test(): WriteResult
-	{
-		// connect
-		$manager = new Manager("mongodb://localhost:27017");
-		return $manager->executeBulkWrite("collection", new BulkWrite([
-			'bypassDocumentValidation' => true,
-		]));
-	}
+    public function test(): WriteResult
+    {
+        // connect
+        $manager = new Manager('mongodb://localhost:27017');
+        return $manager->executeBulkWrite('collection', new BulkWrite([
+            'bypassDocumentValidation' => true,
+        ]));
+    }
 }

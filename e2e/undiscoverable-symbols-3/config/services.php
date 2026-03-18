@@ -1,7 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use App\DummyService;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
 use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
 
 return static function (ContainerConfigurator $containerConfigurator): void {

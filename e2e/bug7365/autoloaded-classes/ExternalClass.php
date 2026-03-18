@@ -1,11 +1,15 @@
 <?php
 
-class ExternalClass {
-	const WARENGRUPPE_STOCKSCHIRME = ClassWithConstants::WARENGRUPPE_STOCKSCHIRME;
-	const WARENGRUPPE_TASCHENSCHIRME = ClassWithConstants::WARENGRUPPE_TASCHENSCHIRME;
-	const WARENGRUPPE_SONNENSCHIRME = ClassWithConstants::WARENGRUPPE_SONNENSCHIRME;
+declare(strict_types=1);
 
-	public function doSomething(): void {
-		echo "ExternalClass::doSomething()\n";
-	}
+class ExternalClass
+{
+    public const WARENGRUPPE_STOCKSCHIRME = ClassWithConstants::WARENGRUPPE_STOCKSCHIRME;
+    public const WARENGRUPPE_TASCHENSCHIRME = ClassWithConstants::WARENGRUPPE_TASCHENSCHIRME;
+    public const WARENGRUPPE_SONNENSCHIRME = ClassWithConstants::WARENGRUPPE_SONNENSCHIRME;
+
+    public function doSomething(): void
+    {
+        echo "ExternalClass::doSomething()\n";
+    }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Security\Authorization;
 
-enum Role : string
+enum Role: string
 {
     case SUPERVISOR = 'ROLE_SUPERVISOR';
     case ADMIN = 'ROLE_ADMIN';

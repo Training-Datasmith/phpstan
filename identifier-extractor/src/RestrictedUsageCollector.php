@@ -1,14 +1,18 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace IdentifierExtractor;
+
+use function array_map;
+use function count;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Collectors\Collector;
 use PHPStan\Rules\RestrictedUsage\RestrictedUsage;
 use PHPStan\ShouldNotHappenException;
-use function array_map;
-use function count;
+
 use function sprintf;
 
 /**
@@ -16,7 +20,6 @@ use function sprintf;
  */
 class RestrictedUsageCollector implements Collector
 {
-
     public function getNodeType(): string
     {
         return Node\Expr\StaticCall::class;

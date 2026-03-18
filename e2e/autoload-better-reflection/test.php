@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace TestBetterReflectionAutoload;
 
 use PHPStan\BetterReflection\Identifier\Identifier;
@@ -12,18 +14,16 @@ require_once __DIR__ . '/../../bootstrap.php';
 
 class Foo implements SourceLocator
 {
+    public function locateIdentifier(
+        Reflector $reflector,
+        Identifier $identifier
+    ): ?Reflection {
+        return null;
+    }
 
-	public function locateIdentifier(
-		Reflector $reflector,
-		Identifier $identifier
-	): ?Reflection
-	{
-		return null;
-	}
-
-	public function locateIdentifiersByType(Reflector $reflector, IdentifierType $identifierType): array
-	{
-		return [];
-	}
+    public function locateIdentifiersByType(Reflector $reflector, IdentifierType $identifierType): array
+    {
+        return [];
+    }
 
 }

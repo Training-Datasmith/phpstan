@@ -1,6 +1,11 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace IdentifierExtractor;
+
+use function array_map;
+use function count;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
@@ -9,8 +14,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Collectors\Collector;
 use PHPStan\ShouldNotHappenException;
 use PHPStan\Type\ObjectType;
-use function array_map;
-use function count;
+
 use function sprintf;
 
 /**
@@ -18,48 +22,47 @@ use function sprintf;
  */
 class ErrorWithIdentifierCollector implements Collector
 {
+    public function getNodeType(): string
+    {
+        return MethodCall::class;
+    }
 
-	public function getNodeType(): string
-	{
-		return MethodCall::class;
-	}
+    public function processNode(Node $node, Scope $scope)
+    {
+        if (!$node->name instanceof Node\Identifier) {
+            return null;
+        }
 
-	public function processNode(Node $node, Scope $scope)
-	{
-		if (!$node->name instanceof Node\Identifier) {
-			return null;
-		}
+        if ($node->name->toLowerString() !== 'withidentifier') {
+            return null;
+        }
 
-		if ($node->name->toLowerString() !== 'withidentifier') {
-			return null;
-		}
+        $args = $node->getArgs();
+        if (!isset($args[0])) {
+            return null;
+        }
 
-		$args = $node->getArgs();
-		if (!isset($args[0])) {
-			return null;
-		}
+        $identifier = $scope->getType($args[0]->value);
+        if (count($identifier->getConstantStrings()) === 0) {
+            throw new ShouldNotHappenException(sprintf('Unknown identifier'));
+        }
 
-		$identifier = $scope->getType($args[0]->value);
-		if (count($identifier->getConstantStrings()) === 0) {
-			throw new ShouldNotHappenException(sprintf('Unknown identifier'));
-		}
+        $calledOnType = $scope->getType($node->var);
+        $error = new ObjectType(Error::class);
+        if (!$error->isSuperTypeOf($calledOnType)->yes()) {
+            return null;
+        }
 
-		$calledOnType = $scope->getType($node->var);
-		$error = new ObjectType(Error::class);
-		if (!$error->isSuperTypeOf($calledOnType)->yes()) {
-			return null;
-		}
+        if (!$scope->isInClass()) {
+            return null;
+        }
 
-		if (!$scope->isInClass()) {
-			return null;
-		}
-
-		return [
-			'identifiers' => array_map(static fn ($type): string => $type->getValue(), $identifier->getConstantStrings()),
-			'class' => $scope->getClassReflection()->getName(),
-			'file' => $scope->getFile(),
-			'line' => $args[0]->getStartLine(),
-		];
-	}
+        return [
+            'identifiers' => array_map(static fn ($type): string => $type->getValue(), $identifier->getConstantStrings()),
+            'class' => $scope->getClassReflection()->getName(),
+            'file' => $scope->getFile(),
+            'line' => $args[0]->getStartLine(),
+        ];
+    }
 
 }

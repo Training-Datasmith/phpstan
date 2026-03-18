@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Canvural\tests;
 
 use PHPStan\Testing\TypeInferenceTestCase;

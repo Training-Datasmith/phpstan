@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 require __DIR__.'/../vendor/autoload.php';
 
 spl_autoload_register(function ($class): void {
-	// fake classes which would usually be defined in the clxMobileNet-App itself
-	if ('ApplicationController' === $class) {
-		class ApplicationController
-		{
-		}
-	}
+    // fake classes which would usually be defined in the clxMobileNet-App itself
+    if ('ApplicationController' === $class) {
+        class ApplicationController
+        {
+        }
+    }
 });

@@ -9,13 +9,12 @@ use ezcBaseAutoloadException;
 
 final class Autoloader
 {
-
-	/**
-	 * @throws ezcBaseAutoloadException
-	 */
-	public static function autoloadEzc(string $className): void
-	{
-		ezcBase::autoload($className);
-	}
+    /**
+     * @throws ezcBaseAutoloadException
+     */
+    public static function autoloadEzc(string $className): void
+    {
+        ezcBase::autoload($className);
+    }
 
 }
