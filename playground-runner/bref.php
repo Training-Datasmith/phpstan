@@ -20,6 +20,14 @@ $phpstanVersion = \Jean85\PrettyVersions::getVersion('phpstan/phpstan')->getPret
     ],
 ]);
 
+/**
+ * Recursively removes all files and subdirectories under /tmp.
+ *
+ * Called at the start of each Lambda invocation to prevent leftover files from
+ * a previous warm-start contaminating the analysis of the current request.
+ *
+ * @complexity O(n) where n is the total number of files and directories in /tmp
+ */
 function clearTemp(): void
 {
     $files = new RecursiveIteratorIterator(
@@ -33,6 +41,28 @@ function clearTemp(): void
     }
 }
 
+/**
+ * AWS Lambda handler for the PHPStan playground runner.
+ *
+ * Accepts an event payload from the playground-api, analyses the submitted code
+ * with PHPStan, and returns the list of errors together with the PHPStan version.
+ *
+ * @param array{
+ *     code: string,
+ *     level: int|string,
+ *     strictRules?: bool,
+ *     bleedingEdge?: bool,
+ *     treatPhpDocTypesAsCertain?: bool,
+ *     phpVersion?: int,
+ * } $event Lambda event payload
+ *
+ * @return array{
+ *     result: list<array{message: string, line: int|null, ignorable: bool, tip?: string, identifier?: string, fixDiff?: string}>,
+ *     version: string,
+ *     fixedCode?: string,
+ *     fixedCodeDiff?: string,
+ * } Analysis result
+ */
 return function (array $event) use ($phpstanVersion): array {
     clearTemp();
     $code = $event['code'];
